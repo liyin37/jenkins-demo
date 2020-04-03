@@ -37,6 +37,7 @@ pipeline{
         // 添加第三个stage, 运行容器镜像构建和推送命令， 用到了environment中定义的groovy环境变量
         stage('Image Build And Publish'){
           steps{
+              input '是否部署？'
               container("kaniko") {
                   sh "kaniko -f `pwd`/Dockerfile -c `pwd` --destination=${ORIGIN_REPO}/${REPO}:${IMAGE_TAG} --skip-tls-verify"
               }
